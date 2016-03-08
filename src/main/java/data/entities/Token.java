@@ -22,6 +22,10 @@ public class Token {
     @ManyToOne
     @JoinColumn
     private User user;
+    
+    private long expirationDate;
+    
+    public static final long TOKEN_LIFETIME = 3600000;
 
     public Token() {
     }
@@ -31,6 +35,7 @@ public class Token {
         this.user = user;
         this.value = new Encrypt().encryptInBase64UrlSafe("" + user.getId() + user.getUsername() + Long.toString(new Date().getTime())
                 + user.getPassword());
+        this.expirationDate = System.currentTimeMillis() + Token.TOKEN_LIFETIME;
     }
 
     public int getId() {
@@ -44,6 +49,14 @@ public class Token {
     public User getUser() {
         return user;
     }
+    
+    public long getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(long expirationDate) {
+		this.expirationDate = expirationDate;
+	}
 
     @Override
     public int hashCode() {
