@@ -1,5 +1,6 @@
 package data.entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,8 +36,10 @@ public class PadelLesson {
 	
 	private Calendar endDate;
 	
+	public static final int LESSON_MAX_STUDENTS = 4;
+	
 	public PadelLesson() {
-		
+		this.students = new ArrayList<User>();
 	}
 	
 	public PadelLesson(User trainer, Court court, Calendar timeTable, Calendar beginDate, Calendar endDate) {
@@ -45,6 +48,7 @@ public class PadelLesson {
 		this.timeTable = timeTable;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
+		this.students = new ArrayList<User>();
 	}
 
 	public int getId() {
@@ -108,5 +112,18 @@ public class PadelLesson {
 		return "PadelLesson [id=" + id + ", trainer=" + trainer + ", students="
 				+ students + ", court=" + court + ", timeTable=" + timeTable
 				+ ", beginDate=" + beginDate + ", endDate=" + endDate + "]";
+	}
+	
+	public boolean addStudent(User user) {
+		if(this.students.size() < PadelLesson.LESSON_MAX_STUDENTS) {
+			this.students.add(user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean removeStudent(User user) {
+		return this.students.remove(user);
 	}
 }
