@@ -31,5 +31,16 @@ public class TokenDaoITest {
         assertEquals(token, tokenDao.findByUser(token.getUser()));
         assertNull(tokenDao.findByUser(user));
     }
+    
+    @Test
+    public void testRemoveExpiredTokens() {
+    	assertEquals(4, tokenDao.count());
+    	Token token = new Token((User) daosService.getMap().get("u3"));
+    	token.setExpirationDate(System.currentTimeMillis() - Token.TOKEN_LIFETIME);
+    	tokenDao.save(token);
+    	assertEquals(5, tokenDao.count());
+    	tokenDao.removeExpiredTokens(System.currentTimeMillis());
+    	assertEquals(4, tokenDao.count());
+    }
 
 }
