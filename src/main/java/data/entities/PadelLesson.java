@@ -5,12 +5,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class PadelLesson {
@@ -23,13 +24,14 @@ public class PadelLesson {
     @JoinColumn
     private User trainer;
 	
-	@OneToMany(mappedBy = "padelLesson", fetch = FetchType.EAGER)
+	@OneToMany
     private List<User> students;
 	
 	@ManyToOne
     @JoinColumn
     private Court court;
 	
+	@Temporal(TemporalType.DATE)
 	private Calendar timeTable;
 	
 	private Calendar beginDate;
