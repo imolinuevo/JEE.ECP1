@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PadelLessonTest {
+public class LessonTest {
 	
-	private PadelLesson padelLesson;
+	private Lesson padelLesson;
 	
 	@Before
 	public void before() {
-		padelLesson = new PadelLesson();
+		padelLesson = new Lesson();
 	}
 
 	@Test

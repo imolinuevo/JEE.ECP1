@@ -10,7 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
     UserDaoITest.class,
     AuthorizationDaoITest.class,
     ReserveDaoITest.class,
-    PadelLessonITest.class
+    LessonDaoITest.class
 })
 public class AllDaosITests {
 

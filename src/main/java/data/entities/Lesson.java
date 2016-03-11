@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class PadelLesson {
+public class Lesson {
 
 	@Id
     @GeneratedValue
@@ -40,11 +40,11 @@ public class PadelLesson {
 	
 	public static final int LESSON_MAX_STUDENTS = 4;
 	
-	public PadelLesson() {
+	public Lesson() {
 		this.students = new ArrayList<User>();
 	}
 	
-	public PadelLesson(User trainer, Court court, Calendar timeTable, Calendar beginDate, Calendar endDate) {
+	public Lesson(User trainer, Court court, Calendar timeTable, Calendar beginDate, Calendar endDate) {
 		this.trainer = trainer;
 		this.court = court;
 		this.timeTable = timeTable;
@@ -117,7 +117,7 @@ public class PadelLesson {
 	}
 	
 	public boolean addStudent(User user) {
-		if(this.students.size() < PadelLesson.LESSON_MAX_STUDENTS) {
+		if(this.students.size() < Lesson.LESSON_MAX_STUDENTS) {
 			this.students.add(user);
 			return true;
 		} else {

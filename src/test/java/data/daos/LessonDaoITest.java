@@ -12,12 +12,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
-import data.entities.PadelLesson;
+import data.entities.Lesson;
 import data.entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
-public class PadelLessonITest {
+public class LessonDaoITest {
 
 	@Autowired
 	private DaosService daosService;
@@ -26,7 +26,7 @@ public class PadelLessonITest {
 	private CourtDao courtDao;
 	
 	@Autowired
-	private PadelLessonDao padelLessonDao;
+	private LessonDao lessonDao;
 	
 	@Test
 	public void testFindByTimeTable() {
@@ -39,9 +39,9 @@ public class PadelLessonITest {
         Calendar date3 = (Calendar) date1.clone();
         date3.add(Calendar.HOUR_OF_DAY, 13);
         date3.add(Calendar.MINUTE, 49);
-		PadelLesson padelLesson = new PadelLesson((User) daosService.getMap().get("u1"), courtDao.findOne(2), date1, date2, date3);
-		padelLessonDao.save(padelLesson);
-		assertNotNull(padelLessonDao.findByTimeTable(padelLesson.getTimeTable()));
+		Lesson padelLesson = new Lesson((User) daosService.getMap().get("u1"), courtDao.findOne(2), date1, date2, date3);
+		lessonDao.save(padelLesson);
+		assertNotNull(lessonDao.findByTimeTable(padelLesson.getTimeTable()));
 	}
 
 }
