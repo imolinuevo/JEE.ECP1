@@ -1,5 +1,6 @@
 package business.api;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import data.entities.Court;
+import data.entities.User;
 import business.api.exceptions.AlreadyExistLessonIdException;
 import business.api.exceptions.DeleteStudentException;
 import business.api.exceptions.JoinLessonException;
@@ -28,8 +31,9 @@ public class LessonResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public void createLesson(@RequestParam(required = true) int id) throws AlreadyExistLessonIdException {
-        if (!this.lessonController.createLesson(id)) {
+    public void createLesson(@RequestParam(required = true) User trainer, Court court, Calendar timeTable,
+			Calendar beginDate, Calendar endDate) throws AlreadyExistLessonIdException {
+        if (!this.lessonController.createLesson(new LessonWrapper(trainer, court, timeTable, beginDate, endDate))) {
             throw new AlreadyExistLessonIdException();
         }
     }
@@ -47,15 +51,15 @@ public class LessonResource {
 	}
 	
 	@RequestMapping(value = Uris.ID + Uris.STUDENTS + Uris.ID, method = RequestMethod.POST)
-	public void joinLesson(@PathVariable int lessonId, int studentId) throws JoinLessonException {
-		if(!lessonController.joinLesson(lessonId, studentId)) {
+	public void joinLesson(@PathVariable int lessonId, String studentUsername) throws JoinLessonException {
+		if(!lessonController.joinLesson(lessonId, studentUsername)) {
 			throw new JoinLessonException();
 		}
 	}
 	
 	@RequestMapping(value = Uris.ID + Uris.STUDENTS + Uris.ID, method = RequestMethod.DELETE)
-	public void deleteStudent(@PathVariable int lessonId, int studentId)  throws DeleteStudentException {
-		if(!lessonController.deleteStudent(lessonId, studentId)) {
+	public void deleteStudent(@PathVariable int lessonId, String studentUsername)  throws DeleteStudentException {
+		if(!lessonController.deleteStudent(lessonId, studentUsername)) {
 			throw new DeleteStudentException();
 		}
 	}

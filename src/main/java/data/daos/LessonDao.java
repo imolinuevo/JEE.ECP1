@@ -12,4 +12,5 @@ public interface LessonDao extends JpaRepository<Lesson, Integer> {
 	@Query("select lesson from Lesson lesson where lesson.timeTable = ?1")
 	Lesson findByTimeTable(Calendar timeTable);
 
+	Lesson findById(int id);
 }

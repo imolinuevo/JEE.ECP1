@@ -125,6 +125,15 @@ public class Lesson {
 		}
 	}
 	
+	public boolean hasStudent(int id) {
+		for(User student : this.students) {
+			if(student.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean removeStudent(User user) {
 		return this.students.remove(user);
 	}

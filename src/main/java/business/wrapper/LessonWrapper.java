@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import data.entities.Court;
+import data.entities.Lesson;
 import data.entities.User;
 
 public class LessonWrapper {
@@ -34,6 +35,15 @@ public class LessonWrapper {
 		this.timeTable = timeTable;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
+	}
+	
+	public LessonWrapper(Lesson lesson) {
+		super();
+		this.trainer = lesson.getTrainer();
+		this.court = lesson.getCourt();
+		this.timeTable = lesson.getTimeTable();
+		this.beginDate = lesson.getBeginDate();
+		this.endDate = lesson.getEndDate();
 	}
 
 	public int getId() {

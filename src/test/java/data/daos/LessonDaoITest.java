@@ -43,5 +43,12 @@ public class LessonDaoITest {
 		lessonDao.save(padelLesson);
 		assertNotNull(lessonDao.findByTimeTable(padelLesson.getTimeTable()));
 	}
+	
+	@Test
+	public void testFindById() {
+		Lesson lesson = new Lesson();
+		lessonDao.save(lesson);
+		assertEquals(lesson.getId(), lessonDao.findById(lesson.getId()).getId());
+	}
 
 }
