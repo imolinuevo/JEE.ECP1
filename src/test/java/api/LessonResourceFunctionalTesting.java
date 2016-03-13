@@ -152,18 +152,45 @@ public class LessonResourceFunctionalTesting {
 		}
 	}
 	
-	/*
-	
 	@Test
 	public void testDeleteStudent() {
-		
+		User user = userDao.findByUsernameOrEmail("trainer");
+		courtDao.save(new Court(1));
+		Court court = courtDao.findById(1);
+		LessonWrapper lessonWrapper = lessonService.getExampleLessonWrapper(user, court);
+		restService.createLesson(lessonWrapper);
+		int lessonId = lessonDao.findFirstById().getId();
+		User student = new User("inigo", "inigo@gmail.com", "pass", null);
+		userDao.save(student);
+		assertNotNull(lessonId);
+		assertNotNull(student.getUsername());
+		restService.addStudent(lessonId, student.getUsername());
+		assertTrue(lessonDao.findFirstById().hasStudent(student.getId()));
+		restService.deleteStudent(lessonId, student.getUsername());
+		assertFalse(lessonDao.findFirstById().hasStudent(student.getId()));
 	}
 	
 	@Test
 	public void testDeleteStudentUnauthorized() {
-		
+		User user = userDao.findByUsernameOrEmail("trainer");
+		courtDao.save(new Court(1));
+		Court court = courtDao.findById(1);
+		LessonWrapper lessonWrapper = lessonService.getExampleLessonWrapper(user, court);
+		restService.createLesson(lessonWrapper);
+		int lessonId = lessonDao.findFirstById().getId();
+		User student = new User("inigo", "inigo@gmail.com", "pass", null);
+		userDao.save(student);
+		restService.addStudent(lessonId, student.getUsername());
+		try {
+			new RestBuilder<Object>(RestService.URL).path(Uris.LESSONS).pathId(lessonId)
+			.path(Uris.STUDENTS).body(student.getUsername())
+			.basicAuth("", "").delete().build();
+		} catch (HttpClientErrorException httpError) {
+			assertEquals(HttpStatus.UNAUTHORIZED, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass()).info(
+                    "testJoinLesson (" + httpError.getMessage() + "):\n    " + httpError.getResponseBodyAsString());
+		}
 	}
-	*/
 	
 	@After
     public void deleteAll() {
