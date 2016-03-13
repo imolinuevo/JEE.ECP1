@@ -9,6 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
     UserResourceFunctionalTesting.class, 
     TokenResourceFunctionalTesting.class, 
     CourtResourceFunctionalTesting.class,
+    LessonResourceFunctionalTesting.class,
 })
 public class AllFunctionalTesting {
 

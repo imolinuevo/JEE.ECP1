@@ -1,8 +1,6 @@
 package data.daos;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,5 +42,10 @@ public class UserDaoITest {
         Token t1 = (Token) daosService.getMap().get("tu1");
         assertEquals(u1, userDao.findByTokenValue(t1.getValue()));
         assertNull(userDao.findByTokenValue("kk"));
+    }
+    
+    @Test
+    public void testFindTrainer() {
+    	assertNotNull(userDao.findByUsernameOrEmail("trainer"));
     }
 }
