@@ -60,7 +60,7 @@ public class RestService {
 	public void addStudent(int id, String username) {
 		new RestBuilder<Object>(URL).path(Uris.LESSONS).pathId(id)
 				.path(Uris.STUDENTS).body(username)
-				.basicAuth(this.loginTrainer(), "").post().build();
+				.basicAuth(this.registerAndLoginPlayer(), "").post().build();
 	}
 	
 	public void deleteStudent(int id, String username) {
