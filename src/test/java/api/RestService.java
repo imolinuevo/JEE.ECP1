@@ -33,7 +33,7 @@ public class RestService {
 				.clazz(TokenWrapper.class).post().build();
 		return token.getToken();
 	}
-	
+
 	public String loginTrainer() {
 		TokenWrapper token = new RestBuilder<TokenWrapper>(URL)
 				.path(Uris.TOKENS).basicAuth("trainer", "trainer")
@@ -47,15 +47,20 @@ public class RestService {
 	}
 
 	public void createLesson(LessonWrapper lessonWrapper) {
-		new RestBuilder<Object>(URL).path(Uris.LESSONS)
-				.body(lessonWrapper)
+		new RestBuilder<Object>(URL).path(Uris.LESSONS).body(lessonWrapper)
 				.basicAuth(this.loginTrainer(), "").post().build();
 	}
-	
+
 	public void deleteLesson(int id) {
 		new RestBuilder<Object>(URL).path(Uris.LESSONS)
 				.param("id", new Integer(id).toString())
 				.basicAuth(this.loginTrainer(), "").delete().build();
+	}
+
+	public void addStudent(int id, String username) {
+		new RestBuilder<Object>(URL).path(Uris.LESSONS).pathId(id)
+				.path(Uris.STUDENTS).body(username)
+				.basicAuth(this.loginTrainer(), "").post().build();
 	}
 
 }

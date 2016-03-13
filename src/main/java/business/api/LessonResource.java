@@ -53,18 +53,18 @@ public class LessonResource {
 		return lessonController.showLessons();
 	}
 
-	@RequestMapping(value = Uris.ID + Uris.STUDENTS + Uris.ID, method = RequestMethod.POST)
-	public void joinLesson(@PathVariable int lessonId, String studentUsername)
+	@RequestMapping(value = Uris.ID + Uris.STUDENTS, method = RequestMethod.POST)
+	public void joinLesson(@AuthenticationPrincipal User trainer, @PathVariable int id, @RequestBody String studentUsername)
 			throws JoinLessonException {
-		if (!lessonController.joinLesson(lessonId, studentUsername)) {
+		if (!lessonController.joinLesson(id, studentUsername)) {
 			throw new JoinLessonException();
 		}
 	}
 
-	@RequestMapping(value = Uris.ID + Uris.STUDENTS + Uris.ID, method = RequestMethod.DELETE)
-	public void deleteStudent(@PathVariable int lessonId, String studentUsername)
+	@RequestMapping(value = Uris.ID + Uris.STUDENTS, method = RequestMethod.DELETE)
+	public void deleteStudent(@AuthenticationPrincipal User trainer, @PathVariable int id, @RequestBody String studentUsername)
 			throws DeleteStudentException {
-		if (!lessonController.deleteStudent(lessonId, studentUsername)) {
+		if (!lessonController.deleteStudent(id, studentUsername)) {
 			throw new DeleteStudentException();
 		}
 	}

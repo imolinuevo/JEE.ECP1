@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.LESSONS).hasAnyRole(Role.TRAINER.name())
                 .antMatchers(HttpMethod.DELETE, Uris.SERVLET_MAP + Uris.LESSONS).hasAnyRole(Role.TRAINER.name())
                 .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.LESSONS).hasAnyRole(Role.PLAYER.name())
-                .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.LESSONS + Uris.ID + Uris.STUDENTS + Uris.ID).hasAnyRole(Role.PLAYER.name())
+                .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.LESSONS + Uris.ID + Uris.STUDENTS + Uris.ID).hasAnyRole(Role.TRAINER.name())
                 .antMatchers(HttpMethod.DELETE, Uris.SERVLET_MAP + Uris.LESSONS + Uris.ID + Uris.STUDENTS + Uris.ID).hasAnyRole(Role.TRAINER.name())
                 .and().httpBasic();
     }

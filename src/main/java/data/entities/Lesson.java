@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,7 +25,7 @@ public class Lesson {
     @JoinColumn
     private User trainer;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
     private List<User> students;
 	
 	@ManyToOne
