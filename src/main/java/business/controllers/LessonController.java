@@ -58,8 +58,8 @@ public class LessonController {
 		return null;
 	}
 
-	public boolean deleteLesson(int id) {
-		Lesson lesson = lessonDao.findById(id);
+	public boolean deleteLesson(String id) {
+		Lesson lesson = lessonDao.findById(Integer.parseInt(id));
 		if(lesson == null) {
 			return false;
 		} else {

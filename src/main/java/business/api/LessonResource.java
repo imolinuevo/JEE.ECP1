@@ -40,7 +40,8 @@ public class LessonResource {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	public void deleteLesson(@RequestParam(required = true) int id)
+	public void deleteLesson(@AuthenticationPrincipal User trainer,
+			@RequestParam(required = true) String id)
 			throws NotFoundLessonIdException {
 		if (!lessonController.deleteLesson(id)) {
 			throw new NotFoundLessonIdException("id: " + id);

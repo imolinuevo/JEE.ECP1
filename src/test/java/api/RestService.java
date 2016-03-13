@@ -51,5 +51,11 @@ public class RestService {
 				.body(lessonWrapper)
 				.basicAuth(this.loginTrainer(), "").post().build();
 	}
+	
+	public void deleteLesson(int id) {
+		new RestBuilder<Object>(URL).path(Uris.LESSONS)
+				.param("id", new Integer(id).toString())
+				.basicAuth(this.loginTrainer(), "").delete().build();
+	}
 
 }

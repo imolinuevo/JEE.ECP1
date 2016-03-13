@@ -54,6 +54,7 @@ public class LessonDaoITest {
 	@Test
 	public void testFindFirst() {
 		assertNotNull(lessonDao.findFirstById());
+		System.out.println(lessonDao.findFirstById().getId());
 	}
 
 }

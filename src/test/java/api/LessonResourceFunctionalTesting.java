@@ -50,12 +50,11 @@ public class LessonResourceFunctionalTesting {
 		assertEquals(1, lessonDao.count());
 	}
 
-	
 	@Test
 	public void testCreateLessonUnauthorized() {
 		try {
 			User user = userDao.findByUsernameOrEmail("trainer");
-			Court court = courtDao.findById(1);
+			Court court = courtDao.findById(4);
 			LessonWrapper lessonWrapper = lessonService.getExampleLessonWrapper(user, court);
 			new RestBuilder<Object>(RestService.URL).path(Uris.LESSONS)
 			.body(lessonWrapper)
@@ -70,8 +69,16 @@ public class LessonResourceFunctionalTesting {
 	
 	@Test
 	public void testDeleteLesson() {
-		
+		assertEquals(0, lessonDao.count());
+		User user = userDao.findByUsernameOrEmail("trainer");
+		courtDao.save(new Court(1));
+		Court court = courtDao.findById(1);
+		LessonWrapper lessonWrapper = lessonService.getExampleLessonWrapper(user, court);
+		restService.createLesson(lessonWrapper);
+		assertEquals(1, lessonDao.count());
+		restService.deleteLesson(lessonDao.findFirstById().getId());
 	}
+	
 	/*
 	
 	@Test
