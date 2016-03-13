@@ -50,5 +50,10 @@ public class LessonDaoITest {
 		lessonDao.save(lesson);
 		assertEquals(lesson.getId(), lessonDao.findById(lesson.getId()).getId());
 	}
+	
+	@Test
+	public void testFindFirst() {
+		assertNotNull(lessonDao.findFirstById());
+	}
 
 }

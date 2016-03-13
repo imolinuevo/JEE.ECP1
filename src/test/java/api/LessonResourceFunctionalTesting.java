@@ -1,20 +1,26 @@
 package api;
 
-import java.util.Calendar;
+import static org.junit.Assert.*;
 
+import org.apache.logging.log4j.LogManager;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.HttpClientErrorException;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import data.daos.CourtDao;
+import data.daos.LessonDao;
 import data.daos.UserDao;
 import data.entities.Court;
 import data.entities.User;
+import data.services.LessonService;
+import business.api.Uris;
 import business.wrapper.LessonWrapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,35 +33,46 @@ public class LessonResourceFunctionalTesting {
 	@Autowired
 	private CourtDao courtDao;
 	
-	RestService restService = new RestService();
+	@Autowired
+	private LessonDao lessonDao;
+	
+	private RestService restService = new RestService();
+	
+	private LessonService lessonService = new LessonService();
 	
 	@Test
 	public void testCreateLesson() {
-		Calendar timeTable = Calendar.getInstance();
-		timeTable.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		timeTable.set(Calendar.HOUR, 18);
-		Calendar beginDate = Calendar.getInstance();
-		beginDate.set(Calendar.MONTH, Calendar.APRIL);
-		beginDate.set(Calendar.DAY_OF_MONTH, 12);
-		Calendar endDate = Calendar.getInstance();
-		endDate.set(Calendar.MONTH, Calendar.JUNE);
-		endDate.set(Calendar.DAY_OF_MONTH, 22);
+		assertEquals(0, lessonDao.count());
 		User user = userDao.findByUsernameOrEmail("trainer");
 		Court court = courtDao.findById(1);
-		LessonWrapper lessonWrapper = new LessonWrapper(user, court, timeTable, beginDate, endDate);
+		LessonWrapper lessonWrapper = lessonService.getExampleLessonWrapper(user, court);
 		restService.createLesson(lessonWrapper);
+		assertEquals(1, lessonDao.count());
 	}
-	/*
+
 	
 	@Test
 	public void testCreateLessonUnauthorized() {
-		
+		try {
+			User user = userDao.findByUsernameOrEmail("trainer");
+			Court court = courtDao.findById(1);
+			LessonWrapper lessonWrapper = lessonService.getExampleLessonWrapper(user, court);
+			new RestBuilder<Object>(RestService.URL).path(Uris.LESSONS)
+			.body(lessonWrapper)
+			.basicAuth("", "").post().build();
+			fail();
+		} catch (HttpClientErrorException httpError) {
+			assertEquals(HttpStatus.UNAUTHORIZED, httpError.getStatusCode());
+            LogManager.getLogger(this.getClass()).info(
+                    "testCreateLesson (" + httpError.getMessage() + "):\n    " + httpError.getResponseBodyAsString());
+		}
 	}
 	
 	@Test
 	public void testDeleteLesson() {
 		
 	}
+	/*
 	
 	@Test
 	public void testDeleteLessonUnauthorized() {

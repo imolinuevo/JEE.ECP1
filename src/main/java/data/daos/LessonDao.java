@@ -13,4 +13,7 @@ public interface LessonDao extends JpaRepository<Lesson, Integer> {
 	Lesson findByTimeTable(Calendar timeTable);
 
 	Lesson findById(int id);
+	
+	@Query(value = "SELECT * FROM lesson LIMIT 1", nativeQuery = true)
+	Lesson findFirstById();
 }
