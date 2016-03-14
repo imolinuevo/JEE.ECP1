@@ -9,6 +9,9 @@ public interface UserDao extends JpaRepository<User, Integer> {
     
     @Query("select token.user from Token token where token.value = ?1")
     public User findByTokenValue(String tokenValue);
+    
+    @Query("select token.user from Token token where token.value = ?1 and token.expirationDate > ?2")
+    public User findByTokenNotExpired(String tokenValue, long CurrentTimeMillis);
 
     @Query("select user from User user where user.username = ?1 or user.email = ?1")
     public User findByUsernameOrEmail(String id);

@@ -22,6 +22,9 @@ public class UserDaoITest {
 
     @Autowired
     private DaosService daosService;
+    
+    @Autowired
+    private TokenDao tokenDao;
 
     @Test
     public void testCreate() {
@@ -47,5 +50,18 @@ public class UserDaoITest {
     @Test
     public void testFindTrainer() {
     	assertNotNull(userDao.findByUsernameOrEmail("trainer"));
+    }
+    
+    @Test
+    public void testFindByTokenNotExpired() {
+    	assertEquals(4, tokenDao.count());
+    	Token token = new Token((User) daosService.getMap().get("u3"));
+    	token.setExpirationDate(System.currentTimeMillis() - Token.TOKEN_LIFETIME);
+    	tokenDao.save(token);
+    	assertEquals(5, tokenDao.count());
+    	assertNull(userDao.findByTokenNotExpired(token.getValue(), System.currentTimeMillis()));
+    	User u1 = (User) daosService.getMap().get("u1");
+        Token t1 = (Token) daosService.getMap().get("tu1");
+        assertEquals(u1, userDao.findByTokenNotExpired(t1.getValue(), System.currentTimeMillis()));
     }
 }
