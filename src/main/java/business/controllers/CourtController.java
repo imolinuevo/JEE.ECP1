@@ -28,6 +28,15 @@ public class CourtController {
             return true;
         }
     }
+    
+    public boolean createCourt(int courtId, boolean active) {
+    	if (courtDao.exists(courtId)) {
+    		return false;
+    	} else {
+    		courtDao.save(new Court(courtId, active));
+            return true;
+    	}
+    }
 
     public boolean changeCourtActivation(int id, boolean active) {
         Court court = courtDao.findOne(id);

@@ -19,7 +19,12 @@ public class Court {
         active = true;
     }
 
-    public boolean isActive() {
+    public Court(int id, boolean active) {
+		this.id = id;
+		this.active = active;
+	}
+
+	public boolean isActive() {
         return active;
     }
 

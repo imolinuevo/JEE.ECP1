@@ -4,9 +4,26 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>UPM Padel</title>
 </head>
 <body>
-	<h1>Ejemplo JSP</h1>
+	<h1>Court List</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Active</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${courtList}" var="court">
+				<tr>
+					<td>${court.courtId}</td>
+					<td>${court.active}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<a href="<c:url value='/create_court'/>">Create Court</a>
 </body>
 </html>
