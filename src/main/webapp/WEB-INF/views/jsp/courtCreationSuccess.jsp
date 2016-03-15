@@ -44,7 +44,7 @@
 						<div class="page-header">
 							<h1>
 								<img src="<c:url value='/static/img/upmIcon.png' />"
-									alt="upm icon" /> Show Courts
+									alt="upm icon" /> Court Creation Response
 							</h1>
 						</div>
 						<div class="alert alert-success alert-dismissable">
