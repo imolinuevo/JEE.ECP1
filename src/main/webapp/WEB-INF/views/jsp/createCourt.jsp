@@ -14,7 +14,8 @@
 			<form:errors path="courtId" cssClass="error" />
 		</p>
 		<p>Active:
-			<form:input path="active" placeholder="Active" required="required" />
+			<form:radiobutton path="active" value="true" required="required"/>True
+			<form:radiobutton path="active" value="false" required="required"/>False
 			<form:errors path="active" cssClass="error" />
 		</p>
 		<p><input type="submit" value="Create"></p>
